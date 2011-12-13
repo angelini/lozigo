@@ -72,9 +72,13 @@ To connect them to your app simply call the 'use' function
 ## Entry
 
 Here is an example entry
-    { data: 'Test 13\n',
+
+    { 
+      data: 'Test 13\n',
       date: 1323752580753,
       log: 
         { name: 'Second Log',
           path: '/Users/alexangelini/Local/lozigo/examples/log2.txt' },
-      client_name: 'Example' }
+      client_name: 'Example' 
+    }
+    
