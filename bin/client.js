@@ -47,15 +47,24 @@ function readConfig(config) {
   }
 }
 
-function pipeTail(client, path) {
-  var tail = spawn('tail', ['-Fn', 0, path]);
-  tail.stdout.pipe(client);
-}
-
 function log(message, level) {
   if(ENV >= level) {
     console.log('Log level: ' + level + ' -->', message);
   }
+}
+
+function pipeTail(client, log_info, config) {
+  var tail = spawn('tail', ['-Fn', 0, log_info.path]);
+  tail.stdout.on('data', function(data) {
+    var response = {
+      data: data.toString(),
+      date: Date.now(),
+      log: log_info,
+      client_name: config.client_name
+    };
+
+    client.write(JSON.stringify(response));
+  });
 }
 
 // Main
@@ -78,6 +87,6 @@ function log(message, level) {
   });
 
   for(i = 0; i < config.logs.length; i++) {
-    pipeTail(client, config.logs[i].path);
+    pipeTail(client, config.logs[i], config);
   }
 })();

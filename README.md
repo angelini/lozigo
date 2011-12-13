@@ -49,9 +49,12 @@ Just like connect's middleware system, you tell lozigo's app to use functions wi
 
     function(entry, acc, next) {}
     
-* "entry": Is the line captured from the log
-* "acc": Is an accumulator, an empty object to store information in as the entry is passed through the middleware
-* "next": Is a function which takes the entry and the accumulator as arguments, and launches the next middleware function
+* "entry": Is an object which includes info about the log and the line which
+  was captured
+* "acc": Is an accumulator, an empty object to store information in as the 
+  entry is passed through the middleware
+* "next": Is a function which takes the entry and the accumulator as arguments, 
+  and launches the next middleware function
 
 To connect them to your app simply call the 'use' function
 
@@ -65,3 +68,13 @@ To connect them to your app simply call the 'use' function
     app.listen(8181, function() {
       console.log('Listening on: ' + PORT);
     });
+
+## Entry
+
+Here is an example entry
+    { data: 'Test 13\n',
+      date: 1323752580753,
+      log: 
+        { name: 'Second Log',
+          path: '/Users/alexangelini/Local/lozigo/examples/log2.txt' },
+      client_name: 'Example' }
