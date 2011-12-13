@@ -1,0 +1,24 @@
+{
+  "name": "lozigo",
+  "description": "Collect logs from a distributed network and parse them with connect-style middleware",
+  "keywords": ["log", "parser", "distributed", "connect", "middleware"],
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/SoapyIllusions/lozigo.git" 
+  },
+  "author": "Alex Angelini <alex.louis.angelini@gmail.com>",
+  "main": "lozigo",
+  "bin": {
+    "lozigo": "./bin/client.js"
+  },
+  "engines": {
+    "node": ">= 0.4.10"
+  },
+  "licenses" : [
+    {
+      "type" : "MIT", 
+      "url" : "https://github.com/SoapyIllusions/lozigo/raw/master/LICENSE"
+    }
+  ]
+}

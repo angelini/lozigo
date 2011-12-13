@@ -1,0 +1,10 @@
+{
+  "client_name": "Example",
+  "server_port": "8181",
+  "logs": [
+    { "name": "First Log",
+      "path": "/Users/alexangelini/Local/lozigo/examples/log1.txt" },
+    { "name": "Second Log",
+      "path": "/Users/alexangelini/Local/lozigo/examples/log2.txt" }
+  ]
+}
