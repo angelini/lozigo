@@ -73,6 +73,10 @@ function log(message, level) {
     log('Client connected', DEV);
   });
 
+  client.on('end', function() {
+    log('Client disconnected', DEV);
+  });
+
   for(i = 0; i < config.logs.length; i++) {
     pipeTail(client, config.logs[i].path);
   }
