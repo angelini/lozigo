@@ -63,7 +63,7 @@ function pipeTail(client, log_info, config) {
       client_name: config.client_name
     };
 
-    client.write(JSON.stringify(response));
+    client.write(JSON.stringify(response) + '\f');
   });
 }
 
