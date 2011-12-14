@@ -81,4 +81,31 @@ Here is an example entry
           path: '/Users/alexangelini/Local/lozigo/examples/log2.txt' },
       client_name: 'Example' 
     }
-    
+   
+## Example Middleware
+
+Here are some included middlewares, which provide a simple example of what can be done.
+
+### Keywords
+
+    app.use(lozigo.keywords());
+
+This builds an array of keywords taken from the log line, and adds that array to the accumulator. This is useful when building
+search indexes for your logs or to notify you of the frequency of certain keywords.
+
+### Logger
+
+    // To print to the console
+    app.use(lozigo.logger());
+
+    // To append to a file
+    app.use(lozigo.logger('/combination/log/path');
+
+    // To append to a file and not include meta data
+    app.use(lozigo.logger({
+      file_path: '/combination/log/path',
+      include_meta: false
+    });
+
+This is used to combine all your logs from all your running instances of the lozigo client into a single log with all the meta-data 
+stored. This is useful for making backups.

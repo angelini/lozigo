@@ -19,6 +19,9 @@ function secondLog(entry, acc, next) {
 // Main
 (function main() {
   var app = lozigo.createServer();
+  app.use(lozigo.keywords());
+  app.use(lozigo.logger('./combine.txt'));
+
   app.use(consoleLog);
   app.use(secondLog);
 
