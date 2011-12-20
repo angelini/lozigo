@@ -53,18 +53,24 @@ function log(message, level) {
   }
 }
 
-function pipeTail(client, log_info, config) {
-  var tail = spawn('tail', ['-Fn', 0, log_info.path]);
-  tail.stdout.on('data', function(data) {
-    var response = {
-      data: data.toString(),
-      date: Date.now(),
-      log: log_info,
-      client_name: config.client_name
-    };
-
-    client.write(JSON.stringify(response) + '\f');
+function connectLog(config, index) {
+  var log_info = config.logs[index];
+  var client = net.connect(config.server_port, config.server_host, function() {
+    log('Connected: ' + log_info.name, DEV);
   });
+
+  client.on('end', function() {
+    log('Disconnected: ' + log_info.name, DEV);
+  });
+
+  var info = JSON.stringify({
+    client_name: config.client_name,
+    log: log_info
+  });
+  client.write(info + '\f');
+
+  var tail = spawn('tail', ['-Fn', 0, log_info.path]);
+  tail.stdout.pipe(client);
 }
 
 // Main
@@ -78,15 +84,7 @@ function pipeTail(client, log_info, config) {
 
   var config = readConfig(config_path);
 
-  var client = net.connect(config.server_port, config.server_host, function() {
-    log('Client connected', DEV);
-  });
-
-  client.on('end', function() {
-    log('Client disconnected', DEV);
-  });
-
   for(i = 0; i < config.logs.length; i++) {
-    pipeTail(client, config.logs[i], config);
+    connectLog(config, i);
   }
 })();
